@@ -9,6 +9,7 @@ import argparse
 from peft import PeftModel
 from transformers import LlamaTokenizer, CodeLlamaTokenizer, LlamaForCausalLM, AutoTokenizer, AutoModelForCausalLM
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from tqdm import tqdm
 #
 MODEL_CLASSES = {
     'llama': (LlamaForCausalLM, LlamaTokenizer),
@@ -96,7 +97,7 @@ def main():
         with open(args.csv_path, 'w') as f:
             f.write('Index,Code,Label,Prediction,Prob,Response\n')
 
-    for i, example_content in enumerate(data):
+    for i, example_content in tqdm(enumerate(data), total=len(data), desc="Evaluating"):
         prediction_result = 0
 
         ann = example_content
