@@ -16,16 +16,27 @@ MODEL_CLASSES = {
 }
 PROMPT_DICT = {
     "prompt_input": (
-        "Below is an instruction that describes a task, paired with an input that provides further context. "
-        "Please provide only a single digit as the response: 1 for vulnerable, 0 for safe.\n\n"
-        "Example 1:\nInput: code snippet without errors\nResponse: 0\n"
-        "Example 2:\nInput: code snippet with double free vulnerability\nResponse: 1\n\n"
-        "Now complete the following task:\n"
+        "You are an expert cybersecurity auditor and rigorous C/C++ developer. "
+        "Your task is to analyze the following code snippet to detect any security vulnerabilities. "
+        "Common vulnerabilities include: Buffer Overflows, Memory Leaks, Use-After-Free, SQL Injection, Null Pointer Dereferences, etc.\n\n"
+        "You MUST respond with EXACTLY ONE DIGIT. Do not include any explanations, markdown, or extra text.\n"
+        "- Output '1' if the code contains a vulnerability (is unsafe).\n"
+        "- Output '0' if the code is completely secure (is safe).\n\n"
+        "Example 1:\n"
+        "Input: int main() { int *p = malloc(sizeof(int)); free(p); free(p); return 0; }\n"
+        "Response: 1\n\n"
+        "Example 2:\n"
+        "Input: int add(int a, int b) { return a + b; }\n"
+        "Response: 0\n\n"
+        "Now, analyze the code below:\n"
         "### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response:"
     ),
     "prompt_no_input": (
-        "Below is an instruction that describes a task. "
-        "Write a response that appropriately completes the request.\n\n"
+        "You are an expert cybersecurity auditor and rigorous C/C++ developer. "
+        "Your task is to analyze the following code snippet to detect any security vulnerabilities.\n\n"
+        "You MUST respond with EXACTLY ONE DIGIT. Do not include any explanations, markdown, or extra text.\n"
+        "- Output '1' if the code contains a vulnerability.\n"
+        "- Output '0' if the code is completely secure.\n\n"
         "### Instruction:\n{instruction}\n\n### Response:"
     ),
 }
