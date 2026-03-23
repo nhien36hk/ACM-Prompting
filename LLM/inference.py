@@ -17,7 +17,10 @@ MODEL_CLASSES = {
 PROMPT_DICT = {
     "prompt_input": (
         "Below is an instruction that describes a task, paired with an input that provides further context. "
-        "Write a response that appropriately completes the request.\n\n"
+        "Please provide only a single digit as the response: 1 for vulnerable, 0 for safe.\n\n"
+        "Example 1:\nInput: code snippet without errors\nResponse: 0\n"
+        "Example 2:\nInput: code snippet with double free vulnerability\nResponse: 1\n\n"
+        "Now complete the following task:\n"
         "### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response:"
     ),
     "prompt_no_input": (
