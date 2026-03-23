@@ -115,6 +115,7 @@ def main():
             generated_response = tokenizer.decode(s)
             response = generated_response.split("### Response:")[-1].strip()
             if len(response) > 0:
+                print("Raw response: ", response)
                 prediction = response[0]
                 # 检查prediction是否为'1'或'0'
                 if response[0] == '1':
