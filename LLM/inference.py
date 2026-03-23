@@ -64,8 +64,8 @@ def main():
     )
     print("Base model loaded!")
 
-    model = PeftModel.from_pretrained(model, args.tuned_model)
-    print("Tuned model loaded!")
+    # model = PeftModel.from_pretrained(model, args.tuned_model)
+    # print("Tuned model loaded!")
 
     model.eval()
     if torch.__version__ >= "2" and sys.platform != "win32":
