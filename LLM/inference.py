@@ -7,7 +7,7 @@ import json
 import pandas as pd
 import argparse
 from peft import PeftModel
-from transformers import LlamaTokenizer, CodeLlamaTokenizer, LlamaForCausalLM, AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from transformers import LlamaTokenizer, CodeLlamaTokenizer, LlamaForCausalLM, AutoTokenizer, AutoModelForCausalLM
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 #
 MODEL_CLASSES = {
@@ -55,11 +55,10 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(args.base_model, padding_side='left')
     tokenizer.pad_token_id = tokenizer.eos_token_id
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    bnb_config = BitsAndBytesConfig(load_in_8bit=True)
     model = AutoModelForCausalLM.from_pretrained(
         args.base_model,
-        quantization_config=bnb_config,
-        dtype=torch.float16,
+        load_in_8bit=False,
+        torch_dtype=torch.bfloat16,
         device_map="auto",
         pad_token_id=tokenizer.eos_token_id
     )
